@@ -43,7 +43,7 @@ inputs:
     default: ''
 
 runs:
-  using: 'node15'
+  using: 'node12'
   pre: 'post.js'
 
 # pre: 'setup.js'
