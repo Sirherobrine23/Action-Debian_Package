@@ -52,8 +52,10 @@ DEB_OUTPUT="$(echo "$NAME $VERSION $ARCH" | sed 's| |_|g').deb"
 dpkg-deb --build --verbose . /tmp/$DEB_OUTPUT
 if [ -e /tmp/$DEB_OUTPUT ]
 then
-    rm -rfv *
-    mv -fv /tmp/$DEB_OUTPUT ./$DEB_OUTPUT
+    echo "::group::Remove foldes"
+        rm -rfv *
+        mv -fv /tmp/$DEB_OUTPUT ./$DEB_OUTPUT
+    echo "::endgroup::"
     echo "DEB_PATH=$PWD/$DEB_OUTPUT" >> $GITHUB_ENV
     echo 'Use ${{ env.DEB_PATH }} to get the file'
     echo "DEB_PATH=$PWD/$DEB_OUTPUT"

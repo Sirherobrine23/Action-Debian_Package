@@ -1,22 +1,30 @@
 #!/bin/bash
 set -x
 DEBIAN_FRONTEND=noninteractive
+echo "::group::Updating Repositories"
+    sudo apt update
+echo "::endgroup::"
 #
-echo "Updating Repositories"
-sudo apt update &> /tmp/apt.txt
-echo "Installing the necessary packages"
-sudo apt install -y curl dos2unix wget git dpkg-dev &> /tmp/apt.txt
-sudo apt clean &> /tmp/apt.txt
+echo "::group::Installing the necessary packages"
+    sudo apt install -y curl dos2unix wget git dpkg-dev
+    sudo apt clean
+echo "::endgroup::"
 #
 if [ $INPUT_SPACE == 'true' ];then
-    echo "Removing unnecessary packages"
-    apt purge --remove *dotnet* -y &> /tmp/apt.txt
-    sudo rm -rf /usr/share/dotnet &> /tmp/apt.txt
-    sudo rm -rf /usr/local/lib/android &> /tmp/apt.txt
+    echo "::group::Removing unnecessary apt packages"
+        apt purge --remove *dotnet* -y
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /usr/local/lib/android
+    echo "::endgroup::"
 fi
+#
 # Autoremove
-sudo apt-get -qq autoremove --purge &> /tmp/apt.txt
-echo "removing the swap"
-sudo swapoff -a &> /tmp/apt.txt
-sudo rm -rf /mnt/swap* &> /tmp/apt.txt
+echo "::group::Removing unnecessary apt packages"
+    sudo apt-get -qq autoremove --purge -y
+echo "::endgroup::"
+#
+echo "::group::Removing the swap"
+    sudo swapoff -a
+    sudo rm -rf /mnt/swap*
+echo "::endgroup::"
 exit 0

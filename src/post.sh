@@ -6,10 +6,10 @@ echo "Preparing to upload the file"
 if [ $INPUT_GIT == 'true' ];then
     git config --global user.name ${GITHUB_ACTOR}
     git config --global user.email "actions@github.com"
-    if [ $INPUT_URL == 'http://' ];then
+    if echo $INPUT_TOKEN|grep -q 'http://';then
         echo 'http://'
         REPO="http://$INPUT_TOKEN@$(echo $INPUT_URL |sed 's|http://||g')"
-    elif [ $INPUT_URL == 'https://' ];then
+    elif echo $INPUT_URL |grep -q 'https://';then
         echo 'https://'
         REPO="http://$INPUT_TOKEN@$(echo $INPUT_URL |sed 's|https://||g')"
     else
