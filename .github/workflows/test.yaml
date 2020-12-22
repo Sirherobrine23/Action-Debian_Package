@@ -17,6 +17,7 @@ jobs:
         GIT: true
         URL: 'https://github.com/Sirherobrine23/APT_bysh23.git'
         BRANCH: 'master'
+        TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
     - name: List
       run: echo ${{ env.DEB_PATH }}

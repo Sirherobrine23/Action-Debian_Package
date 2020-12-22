@@ -40,7 +40,7 @@ inputs:
   TOKEN:
     description: 'Script to be executed so wants to organize the files'
     required: false
-    default: ${{ secrets.GITHUB_TOKEN }}
+    default: ''
 
 runs:
   using: 'node12'
