@@ -21,7 +21,7 @@ var gitclone = exec(gitCLONEcommand)
 gitclone.stdout.on('data', function (data) {
     console.log(data);
 });
-gitclone.om('exit', function (code){
+gitclone.on('exit', function (code){
     if (code == 0){
         var debC = exec(`bash ${__dirname}/src/post_js.sh`)
         debC.stdout.on('data', function (data) {
