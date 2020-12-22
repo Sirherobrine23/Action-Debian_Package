@@ -1,11 +1,10 @@
 var exec = require('child_process').execSync;
 const core = require('@actions/core');
 const github = require('@actions/github');
-const simpleGit = require('simple-git');
-const git = simpleGit();
-
+// 
 const repo_url = core.getInput('URL');
 const TOKEN = core.getInput('TOKEN');
+const BRANCH = core.getInput('BRANCH');
 const user = github.context.actor
 
 if (repo_url.includes('http://')){
@@ -16,10 +15,9 @@ if (repo_url.includes('http://')){
     var REPO = `git://${user}:${TOKEN}@${repo_url.replace('git://', '')}`
 };
 
-console.log(REPO)
-
-git.clone(REPO, [`/tmp/repo`/*, [options]*/])
-
+console.log(REPO,user)
+var gitclone = exec(`git clone ${REPO} -b ${BRANCH} --depth=1 /tmp/repo`).toString()
+console.log(gitclone)
 
 var debC = exec(`bash ${__dirname}/src/post_js.sh`).toString()
 console.log(debC)
