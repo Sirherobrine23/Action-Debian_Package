@@ -21,7 +21,7 @@ function installAPT(){
         }
     });
 }
-console.log(`Process ${process.cwd()},\n Dirname ${__dirname}\n\n\n`)
+// console.log(`Process ${process.cwd()},\n Dirname ${__dirname}\n\n\n`)
 var npmi = exec(`cd ${__dirname} && pwd && npm install`, {detached: false,shell: true});
 console.log('Node Modules install')
 // npmi.stdout.on('data', function (data) {

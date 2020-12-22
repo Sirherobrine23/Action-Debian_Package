@@ -18,10 +18,17 @@ fi
 
 #----------------------------------------------------------------------------------------------------------------------------------------------------
 # Nome do Pacotes
-
-[ -d DEBIAN ] && DEBIAN_DIR=DEBIAN
-[ -d debian ] && DEBIAN_DIR=debian
-
+if [ -d DEBIAN ]
+then
+    DEBIAN_DIR=DEBIAN
+elif [ -d debian ]
+then
+    DEBIAN_DIR=debian
+else
+    echo "We have no way to detect your package, leaving with error 12"
+    find .
+    exit 12
+fi
 echo "Diretorio do arquivos do Debian Package: $DEBIAN_DIR "
 
 NAME="$(cat $DEBIAN_DIR/control | grep 'Package:' | sed 's|Package: ||g' | sed 's|Package:||g')"
@@ -61,23 +68,20 @@ done
 echo "Nome do Pacote:                        - $NAME "
 echo "Versão do Pacote:                      - $VERSION "
 echo "Arquitetura do processador suportados: - $ARQUITETURA "
-
 DEB_OUTPUT="$(echo "$NAME $VERSION $ARQUITETURA" | sed 's| |_|g').deb"
-
 #----------------------------------------------------------------------------------------------------------------------------------------------------
 # Copilando o arquivo
 echo "vamos criar um pacote com as seguintes configurações: $DEB_OUTPUT"
-dpkg-deb --build . /tmp/$DEB_OUTPUT && success=0 || exit 23
+dpkg-deb --build . /tmp/$DEB_OUTPUT
 
-#----------------------------------------------------------------------------------------------------------------------------------------------------
-#Publish
-if [ $success == 0 ]
+if [ -e /tmp/$DEB_OUTPUT ]
 then
     echo "DEB_PATH=/tmp/$DEB_OUTPUT" >> $GITHUB_ENV
     echo 'Use ${{ env.DEB_PATH }} to get the file'
     echo "DEB_PATH=/tmp/$DEB_OUTPUT"
     exit 0
 else
-    exit 1
+    echo "A successful package has not been created!"
+    exit 23
 fi
 exit 0
