@@ -6,13 +6,16 @@ const git = simpleGit();
 
 const repo_url = core.getInput('URL');
 const TOKEN = core.getInput('TOKEN');
-const user = JSON.parse(github.context.actor)
+const user = github.context.actor
 
-if (repo_url.includes('http://'))
-    var REPO = `https://:${TOKEN}@${repo_url.replace('http://', '')}`
-else if (repo_url.includes('https://'))
-    var REPO = `https://${TOKEN}@${repo_url.replace('https://', '')}`
-else
-var REPO = `https://${TOKEN}@${repo_url.replace('git://', '')}`
+if (repo_url.includes('http://')){
+    var REPO = `https://${user}:${TOKEN}@${repo_url.replace('http://', '')}`
+} else if (repo_url.includes('https://')){
+    var REPO = `https://${user}:${TOKEN}@${repo_url.replace('https://', '')}`
+} else {
+    var REPO = `git://${user}:${TOKEN}@${repo_url.replace('git://', '')}`
+};
+
+console.log(REPO)
 
 git.clone(REPO, [`/tmp/repo`/*, [options]*/])
