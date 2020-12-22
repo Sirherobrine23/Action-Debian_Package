@@ -2,6 +2,7 @@
 echo "Preparing to upload the file"
 
 if [ $INPUT_GIT == 'true' ];then
+    env
     git config --global user.name ${GITHUB_ACTOR}
     git config --global user.email "actions@github.com"
     if [ $INPUT_URL == 'http://' ];then
@@ -11,7 +12,8 @@ if [ $INPUT_GIT == 'true' ];then
     else
         REPO="git://$INPUT_TOKEN@$(echo $INPUT_URL |sed 's|http://||g')"
     fi
-    git clone --depth=1 $REPO -b $INPUT_BRANCH /tmp/repo
+    echo "cloned the repository"
+    git clone $REPO -b $INPUT_BRANCH --depth=1 /tmp/repo
     cd /tmp/repo/$INPUT_PATH
     cp -rfv DEB_PATH ./
     git add .
