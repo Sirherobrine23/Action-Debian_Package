@@ -2,15 +2,15 @@
 set -x
 DEBIAN_FRONTEND=noninteractive
 # 
-sudo apt update
-sudo apt install -y curl dos2unix wget git dpkg-dev
-sudo apt clean
+sudo apt update &> /tmp/apt.txt
+sudo apt install -y curl dos2unix wget git dpkg-dev &> /tmp/apt.txt
+sudo apt clean &> /tmp/apt.txt
 # 
-apt purge --remove *dotnet* -y
-sudo rm -rf /usr/share/dotnet
-sudo rm -rf /usr/local/lib/android
+apt purge --remove *dotnet* -y &> /tmp/apt.txt
+sudo rm -rf /usr/share/dotnet &> /tmp/apt.txt
+sudo rm -rf /usr/local/lib/android &> /tmp/apt.txt
 # Autoremove
-sudo apt-get -qq autoremove --purge
-sudo swapoff -a
-sudo rm -rf /mnt/swap*
+sudo apt-get -qq autoremove --purge &> /tmp/apt.txt
+sudo swapoff -a &> /tmp/apt.txt
+sudo rm -rf /mnt/swap* &> /tmp/apt.txt
 exit 0
