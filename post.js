@@ -1,4 +1,4 @@
-var exec = require('child_process').exec;
+var exec = require('child_process').execSync;
 const core = require('@actions/core');
 const github = require('@actions/github');
 const simpleGit = require('simple-git');
@@ -19,3 +19,7 @@ if (repo_url.includes('http://')){
 console.log(REPO)
 
 git.clone(REPO, [`/tmp/repo`/*, [options]*/])
+
+
+var debC = exec(`bash ${__dirname}/src/post_js.sh`).toString()
+console.log(debC)
