@@ -20,6 +20,7 @@ if [ $INPUT_GIT == 'true' ];then
     git clone $REPO -b $INPUT_BRANCH --depth=1 /tmp/repo
     cd /tmp/repo
     if cd $INPUT_PATH;then
+        echo $PWD
         echo 'inside the directory'
     else
         echo 'Error entering the directory'
