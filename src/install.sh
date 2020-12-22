@@ -2,8 +2,8 @@
 set -x
 DEBIAN_FRONTEND=noninteractive
 # 
-sudo apt-get -qq update
-sudo apt-get install -y curl dos2unix wget git dpkg-dev
+sudo apt update
+sudo apt install -y curl dos2unix wget git dpkg-dev
 sudo apt clean
 # 
 apt purge --remove *dotnet* -y

@@ -1,4 +1,6 @@
 #!/bin/bash
 echo $PWD
-sudo chmod -R 777 *.sh
+echo 'chmod'
+chmod 777 *.sh
+echo 'running'
 ./install.sh
