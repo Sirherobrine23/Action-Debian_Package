@@ -9,12 +9,14 @@ jobs:
       uses: actions/checkout@main
       with:
         repository: "Bds-Maneger/BDS-Common"
-        ref: "Unico-build"
 
     - name: Teste
       uses: Sirherobrine23/Action-Debian_Package@main
       with:
         SCRIPT: "script.sh"
+        GIT: true
+        URL: 'https://github.com/Sirherobrine23/APT_bysh23.git'
+        BRANCH: 'master'
         
     - name: List
       run: echo ${{ env.DEB_PATH }}

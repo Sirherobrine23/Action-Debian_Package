@@ -16,11 +16,37 @@ inputs:
     description: 'Script to be executed so wants to organize the files'
     required: false
     default: false
-    
+
+  GIT:
+    description: 'Script to be executed so wants to organize the files'
+    required: false
+    default: ''
+
+  BRANCH:
+    description: 'Script to be executed so wants to organize the files'
+    required: false
+    default: 'main'
+
+  URL:
+    description: 'Script to be executed so wants to organize the files'
+    required: false
+    default: ''
+
+  PATH:
+    description: 'Script to be executed so wants to organize the files'
+    required: false
+    default: 'package/main'
+
+  TOKEN:
+    description: 'Script to be executed so wants to organize the files'
+    required: false
+    default: ${{ secrets.GITHUB_TOKEN }}
+
 runs:
   using: 'node12'
   pre: 'setup.js'
   main: 'repo.js'
+  post: 'post.js'
 
 branding:
   icon: 'code'
