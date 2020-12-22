@@ -1,18 +1,19 @@
 #!/bin/bash
 #----------------------------------------------------------------------------------------------------------------------------------------------------
 # removendo arquivos do diretorio para a pasta /tmp/deb-copiler
-rm -rf .git*
-rm -rf LICE*
-rm -rf README*
-rm -rf *.md
+rm -rfv '.git*'
+rm -rfv 'LICENSE*'
+rm -rfv 'README*'
+rm -rfv '*.md'
+rm -rfv '*.txt'
 
 # Pre script - build
 
-if [ $SCRIPT = 'true' ]
+if [ -e $INPUT_SCRIPT ]
 then
- dos2unix $PRESCRIPT
- bash $PRESCRIPT
- rm -rf $PRESCRIPT
+ dos2unix $INPUT_SCRIPT
+ bash $INPUT_SCRIPT
+ rm -rf $INPUT_SCRIPT
 fi
 
 #----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -51,8 +52,8 @@ fi
 # Execute in all bin foldes 
 for abin in $(find . -name '*bin')
 do
- chmod a+x ${abin}/*
- chmod 775 ${abin}/*
+ chmod -R a+x ${abin}
+ chmod -R 775 ${abin}
 done
 
 #----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -70,23 +71,13 @@ dpkg-deb --build . /tmp/$DEB_OUTPUT && success=0 || exit 23
 
 #----------------------------------------------------------------------------------------------------------------------------------------------------
 #Publish
-mkdir -p /tmp/exports
-if [ $FTP = 'true' ];then
-    curl -T /tmp/$DEB_OUTPUT ftp://$FTPURL/$FTPDIR/ --user $USERSMB:$PASSSMB || ftp-upload --debug --passive -h $FTPURL -u "$USERSMB" --password "$PASSSMB" -d "$FTPDIR" "$DEB_OUTPUT.deb"
-elif [ $GIT = 'true' ];then
-    GITURL="$(echo $GITURL | sed 's|https://||g')"
-    git config --global user.email "srherobrine20@gmail.com"
-    git config --global user.name "Sirherobrine23"
-
-    echo "Atuamente só suportamos links com https://. , o git:// não esta funcionanod por enquanto"
-    echo "estamos clonando com as seguintes informações: https://$GITUSER:*****@$GITURL ,Branch: $GITBRANCH"
-    git clone https://$GITUSER:$GITPASS@$GITURL -b $GITBRANCH /tmp/exports/publish/
-    cd /tmp/exports/publish/
-    cp -f /tmp/$DEB_OUTPUT /tmp/exports/publish/$GITDIR/$DEB_OUTPUT
-    git add .
-    git commit -m "$NAME - Upload by Debian_docker By sh23"
-    git push
+if [ $success == 0 ]
+then
+    echo "DEB_PATH=/tmp/$DEB_OUTPUT" >> $GITHUB_ENV
+    echo 'Use ${{ env.DEB_PATH }} to get the file'
+    echo "DEB_PATH=/tmp/$DEB_OUTPUT"
+    exit 0
 else
- echo 'Não foi informado um metodo para subir o arquivo !!!'
- exit 23
+    exit 1
 fi
+exit 0

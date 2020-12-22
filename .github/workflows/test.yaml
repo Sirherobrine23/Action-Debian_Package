@@ -1,0 +1,20 @@
+name: Test file (Required to fail or complete successfully)
+on: [push]
+
+jobs:
+  Teste:
+    runs-on: ubuntu-latest
+    name: Test
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+      with:
+        repository: "Bds-Maneger/BDS-Common"
+        ref: "Unico-build"
+
+    - name: Teste
+      uses: Sirherobrine23/Action-Debian_Package@main
+      with:
+        SCRIPT: "script.sh"
+    - name: List
+      run: find aptly/public/

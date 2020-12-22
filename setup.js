@@ -1,18 +1,21 @@
 var exec = require('child_process').exec;
+function logoutpu(dados){
+    console.log(dados)
+}
 function installAPT(){
     const core = require('@actions/core');
     const time = (new Date()).toTimeString();
     core.setOutput("time", time);
     // Time End
-    const packages = core.getInput('MOREPACKAGE')
-    var aptrepo = exec(`bash ${__dirname}/src/install.sh`, { maxBuffer: Infinity});
+    var aptrepo = exec(`cd ${__dirname}/src/ && chmod 777 install.sh && ./install.sh`, {maxBuffer: Infinity});   
     aptrepo.stdout.on('data', function (data) {
-        console.log(data);
+        logoutpu(data);
     });
     aptrepo.on('exit', function (code) {
         if (code == 0) {
             // console.log('Apt Packages Install Sucess')
-            console.log('Alt sucess')
+            // console.log('Alt sucess')
+            let NULLLL = '';
         } else {
             core.setFailed('exit with code: '+code);
         }
@@ -26,7 +29,7 @@ console.log('Node Modules install')
 // });
 npmi.on('exit', function (code) {
     if (code == 0) {
-        console.log('NPM install Sucess')
+        logoutpu('NPM install Sucess')
         installAPT();
     } else {
         console.log('npm left with an error, code: '+code);

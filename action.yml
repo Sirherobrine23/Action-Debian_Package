@@ -1,47 +1,17 @@
-name: "Build Openwrt Image in Github CI With Javascript"
+name: "Debian Pachages with actions"
 author: "Sirherobrine23"
-description: "Create Snapshot images in Github Actions"
+description: "Create Debian Packages"
 inputs:
-  STYLE:
-    description: "Debian or Termux folder style"
-    required: false
-    default: "debian"
-
-  DIST:
-    description: 'Name type main'
-    required: true
-    default: 'pages'
-
   DEBUG:
     description: 'Show some more content, default is false'
     required: false
-    default: 'false'
+    default: false
 
-  PUB_KEY:
-    description: 'Public key file'
+  SCRIPT:
+    description: 'Script to be executed so wants to organize the files'
     required: false
-    default: 'pub.key'
-
-  PRIV_KEY:
-    description: 'Private key file'
-    required: false
-    default: 'priv.key'
-
-  KEY_ID:
-    description: 'Id da chave (GPG)'
-    required: false
-    default:  ''
-
-  URL_REPO: 
-    description: 'Pages URL'
-    required: true
     default: ''
-
-  PASS:
-    description: 'GPG key password'
-    required: true
-    default: ''
-
+    
 runs:
   using: 'node12'
   pre: 'setup.js'
