@@ -1,4 +1,4 @@
-var exec = require('child_process').execSync;
+var exec = require('child_process').exec;
 const core = require('@actions/core');
 const github = require('@actions/github');
 // 
@@ -16,8 +16,12 @@ if (repo_url.includes('http://')){
 };
 
 console.log(REPO,user)
-var gitclone = exec(`git clone ${REPO} -b ${BRANCH} --depth=1 /tmp/repo`).toString()
-console.log(gitclone)
+var gitclone = exec(`git clone ${REPO} -b ${BRANCH} --depth=1 /tmp/repo`)
+gitclone.stdout.on('data', function (data) {
+    console.log(data);
+});
 
-var debC = exec(`bash ${__dirname}/src/post_js.sh`).toString()
-console.log(debC)
+var debC = exec(`bash ${__dirname}/src/post_js.sh`)
+debC.stdout.on('data', function (data) {
+    console.log(data);
+});
