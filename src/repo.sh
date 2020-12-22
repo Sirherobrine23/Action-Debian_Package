@@ -49,7 +49,7 @@ do
 done
 
 DEB_OUTPUT="$(echo "$NAME $VERSION $ARCH" | sed 's| |_|g').deb"
-dpkg-deb --build . /tmp/$DEB_OUTPUT
+dpkg-deb --build --verbose . /tmp/$DEB_OUTPUT
 if [ -e /tmp/$DEB_OUTPUT ]
 then
     rm -rfv *

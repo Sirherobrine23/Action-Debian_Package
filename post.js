@@ -5,7 +5,7 @@ const time = (new Date()).toTimeString();
 core.setOutput("time", time);
 // TIME
 // console.log(`Process ${process.cwd()},\n Dirname ${__dirname}\n\n\n`)
-var command = `chmod 777 ${__dirname}/src/repo.sh && ${__dirname}/src/post.sh`
+var command = `chmod 777 ${__dirname}/src/post.sh && ${__dirname}/src/post.sh`
 var serverstated = exec(command, {
     detached: false,
     shell: true,
