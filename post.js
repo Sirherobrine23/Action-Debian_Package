@@ -14,9 +14,10 @@ if (repo_url.includes('http://')){
 } else {
     var REPO = `git://${user}:${TOKEN}@${repo_url.replace('git://', '')}`
 };
-
+var gitCLONEcommand = `git clone ${REPO} -b ${BRANCH} --depth=1 /tmp/repo`
 console.log(REPO,user)
-var gitclone = exec(`git clone ${REPO} -b ${BRANCH} --depth=1 /tmp/repo`)
+console.log(gitCLONEcommand)
+var gitclone = exec(gitCLONEcommand)
 gitclone.stdout.on('data', function (data) {
     console.log(data);
 });
