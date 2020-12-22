@@ -19,7 +19,13 @@ if [ $INPUT_GIT == 'true' ];then
     echo "cloned the repository"
     git clone $REPO -b $INPUT_BRANCH --depth=1 /tmp/repo
     cd /tmp/repo
-    cd $INPUT_PATH || echo 'Error entering the directory' && exit 23
+    if cd $INPUT_PATH;then
+        echo 'inside the directory'
+    else
+        echo 'Error entering the directory'
+        find .
+        exit 23
+    fi
     cp -rfv $DEB_PATH ./
     git add .
     git commit -m "Package add from ${GITHUB_REPOSITORY}"
