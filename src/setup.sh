@@ -1,6 +1,5 @@
 #!/bin/bash
 set -x
-exit 0
 DEBIAN_FRONTEND=noninteractive
 echo "::group::Updating Repositories"
     sudo apt update
