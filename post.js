@@ -1,25 +1,18 @@
 var exec = require('child_process').exec;
 const core = require('@actions/core');
-// TIME
-const time = (new Date()).toTimeString();
-core.setOutput("time", time);
-// TIME
-// console.log(`Process ${process.cwd()},\n Dirname ${__dirname}\n\n\n`)
-var command = `chmod 777 ${__dirname}/src/post.sh && ${__dirname}/src/post.sh`
-var serverstated = exec(command, {
-    detached: false,
-    shell: true,
-    maxBuffer: Infinity});
-function logoutpu(dados){
-    console.log(dados)
-}
-serverstated.stdout.on('data', function (data) {
-    logoutpu(data)
-});
-serverstated.on('exit', function (code) {
-    if (code == 0) {
-        let nuLLL = '';
-    } else {
-        core.setFailed('Error code: ' + code);
-    }
-});
+const github = require('@actions/github');
+const simpleGit = require('simple-git');
+const git = simpleGit();
+
+const repo_url = core.getInput('URL');
+const TOKEN = core.getInput('TOKEN');
+const user = JSON.parse(github.context.actor)
+
+if (repo_url.includes('http://'))
+    var REPO = `https://:${TOKEN}@${repo_url.replace('http://', '')}`
+else if (repo_url.includes('https://'))
+    var REPO = `https://${TOKEN}@${repo_url.replace('https://', '')}`
+else
+var REPO = `https://${TOKEN}@${repo_url.replace('git://', '')}`
+
+git.clone(REPO, [`/tmp/repo`/*, [options]*/])
