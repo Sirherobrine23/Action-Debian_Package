@@ -44,11 +44,9 @@ inputs:
 
 runs:
   using: 'node12'
-  main: 'post.js'
-
-# pre: 'setup.js'
-# main: 'repo.js'
-# post: 'post.js'
+  pre: 'setup.js'
+  main: 'repo.js'
+  # post: 'post.js'
 
 branding:
   icon: 'code'
