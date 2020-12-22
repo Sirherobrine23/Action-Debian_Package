@@ -16,5 +16,6 @@ jobs:
       uses: Sirherobrine23/Action-Debian_Package@main
       with:
         SCRIPT: "script.sh"
+        
     - name: List
-      run: find aptly/public/
+      run: echo ${{ env.DEB_PATH }}

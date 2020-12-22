@@ -51,9 +51,11 @@ DEB_OUTPUT="$(echo "$NAME $VERSION $ARCH" | sed 's| |_|g').deb"
 dpkg-deb --build . /tmp/$DEB_OUTPUT
 if [ -e /tmp/$DEB_OUTPUT ]
 then
-    echo "DEB_PATH=/tmp/$DEB_OUTPUT" >> $GITHUB_ENV
+    rm -rfv *
+    mv -fv /tmp/$DEB_OUTPUT ./$DEB_OUTPUT
+    echo "DEB_PATH=$PWD/$DEB_OUTPUT" >> $GITHUB_ENV
     echo 'Use ${{ env.DEB_PATH }} to get the file'
-    echo "DEB_PATH=/tmp/$DEB_OUTPUT"
+    echo "DEB_PATH=$PWD/$DEB_OUTPUT"
     exit 0
 else
     echo "A successful package has not been created!"
