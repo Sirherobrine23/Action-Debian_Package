@@ -1,10 +1,9 @@
-name: Test file (Required to fail or complete successfully)
+name: Test
 on: [push]
 
 jobs:
   Teste:
     runs-on: ubuntu-latest
-    name: Test
     steps:
     - name: Checkout
       uses: actions/checkout@main

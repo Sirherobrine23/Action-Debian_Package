@@ -1,11 +1,12 @@
 #!/bin/bash
 #
 echo "Removing some unnecessary files and folders"
-rm -rf ".git*"
-rm -rf "LICENSE*"
-rm -rf "README*"
-rm -rf "*.md"
-rm -rf "*.txt"
+rm -rfv ".git*"
+rm -rfv ".github*"
+rm -rfv "LICENSE*"
+rm -rfv "README*"
+rm -rfv "*.md"
+rm -rfv "*.txt"
 echo "--------------------"
 if [ -e $INPUT_SCRIPT ]
 then
