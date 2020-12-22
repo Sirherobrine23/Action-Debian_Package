@@ -11,6 +11,11 @@ inputs:
     description: 'Script to be executed so wants to organize the files'
     required: false
     default: ''
+
+  SPACE:
+    description: 'Script to be executed so wants to organize the files'
+    required: false
+    default: false
     
 runs:
   using: 'node12'
