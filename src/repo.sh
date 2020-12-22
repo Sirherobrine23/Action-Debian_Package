@@ -1,14 +1,10 @@
 #!/bin/bash
-#----------------------------------------------------------------------------------------------------------------------------------------------------
-# removendo arquivos do diretorio para a pasta /tmp/deb-copiler
+#
 rm -rfv '.git*'
 rm -rfv 'LICENSE*'
 rm -rfv 'README*'
 rm -rfv '*.md'
 rm -rfv '*.txt'
-
-# Pre script - build
-
 if [ -e $INPUT_SCRIPT ]
 then
  dos2unix $INPUT_SCRIPT
@@ -16,13 +12,9 @@ then
  rm -rf $INPUT_SCRIPT
 fi
 
-#----------------------------------------------------------------------------------------------------------------------------------------------------
-# Nome do Pacotes
 elif [ -d package*/*/ ];then
     cd package*/*/
 fi
-#
-#
 if [ -d DEBIAN ];then
     DEBIAN_DIR=DEBIAN
 elif [ -d debian ];then
@@ -32,11 +24,15 @@ else
     find .
     exit 12
 fi
-echo "Diretorio do arquivos do Debian Package: $DEBIAN_DIR "
+echo "Debian Package file directory: $DEBIAN_DIR "
 
 NAME="$(cat $DEBIAN_DIR/control | grep 'Package:' | sed 's|Package: ||g' | sed 's|Package:||g')"
 VERSION="$(cat $DEBIAN_DIR/control | grep 'Version: ' | grep -v 'Standards-Version' | sed 's|Version: ||g')"
-ARQUITETURA="$(cat $DEBIAN_DIR/control | grep 'Architecture: ' | sed 's|Architecture: ||g')"
+ARCH="$(cat $DEBIAN_DIR/control | grep 'Architecture: ' | sed 's|Architecture: ||g')"
+
+echo "Package name:         $NAME"
+echo "Package version:      $VERSION"
+echo "Package architecture: $ARCH"
 
 # postinst
 if [ -e $DEBIAN_DIR/postinst ]
@@ -66,17 +62,8 @@ do
  chmod -R 775 ${abin}
 done
 
-#----------------------------------------------------------------------------------------------------------------------------------------------------
-# Informações do pacote
-echo "Nome do Pacote:                        - $NAME "
-echo "Versão do Pacote:                      - $VERSION "
-echo "Arquitetura do processador suportados: - $ARQUITETURA "
-DEB_OUTPUT="$(echo "$NAME $VERSION $ARQUITETURA" | sed 's| |_|g').deb"
-#----------------------------------------------------------------------------------------------------------------------------------------------------
-# Copilando o arquivo
-echo "vamos criar um pacote com as seguintes configurações: $DEB_OUTPUT"
+DEB_OUTPUT="$(echo "$NAME $VERSION $ARCH" | sed 's| |_|g').deb"
 dpkg-deb --build . /tmp/$DEB_OUTPUT
-
 if [ -e /tmp/$DEB_OUTPUT ]
 then
     echo "DEB_PATH=/tmp/$DEB_OUTPUT" >> $GITHUB_ENV
