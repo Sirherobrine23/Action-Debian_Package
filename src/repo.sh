@@ -18,20 +18,15 @@ fi
 
 #----------------------------------------------------------------------------------------------------------------------------------------------------
 # Nome do Pacotes
-if [ -d DEBIAN ]
-then
+elif [ -d package*/*/ ];then
+    cd package*/*/
+fi
+#
+#
+if [ -d DEBIAN ];then
     DEBIAN_DIR=DEBIAN
-elif [ -d debian ]
-then
+elif [ -d debian ];then
     DEBIAN_DIR=debian
-elif [ -d package*/*/debian ]
-then 
-    cd package*/*/debian
-    DEBIAN_DIR=debian
-elif [ -d package*/*/DEBIAN ]
-then
-    cd package*/*/DEBIAN
-    DEBIAN_DIR=DEBIAN
 else
     echo "We have no way to detect your package, leaving with error 12"
     find .
