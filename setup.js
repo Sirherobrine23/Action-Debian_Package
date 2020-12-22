@@ -7,7 +7,7 @@ function installAPT(){
     const time = (new Date()).toTimeString();
     core.setOutput("time", time);
     // Time End
-    var aptrepo = exec(`cd ${__dirname}/src/ && chmod 777 install.sh && ./install.sh`, {maxBuffer: Infinity});   
+    var aptrepo = exec(`bash ${__dirname}/src/setup.sh`, {maxBuffer: Infinity});   
     aptrepo.stdout.on('data', function (data) {
         logoutpu(data);
     });

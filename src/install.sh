@@ -1,4 +1,5 @@
 #!/bin/env bash
+set -x
 DEBIAN_FRONTEND=noninteractive
 # 
 sudo apt-get -qq update
