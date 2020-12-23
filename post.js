@@ -30,6 +30,11 @@ gitclone.on('exit', function (code){
         debC.on('exit', function (code){
             if (code == 0){
                 var commit = exec(`git add . && git commit -m "$DEB_NAME from $GITHUB_REPOSITORY"`)
+                commit.on('exit', function (code){
+                    if (code == 0){
+                       var push = exec(`git push`) 
+                    }
+                })
             }
         })
     } else{
