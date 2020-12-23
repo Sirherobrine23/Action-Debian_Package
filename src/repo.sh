@@ -7,14 +7,16 @@ rm -rfv "LICENSE*"
 rm -rfv "README*"
 rm -rfv "*.md"
 rm -rfv "*.txt"
-echo "--------------------"
 if [ -e $INPUT_SCRIPT ]
 then
- dos2unix $INPUT_SCRIPT
- bash $INPUT_SCRIPT
- rm -rf $INPUT_SCRIPT
+    echo "::group::Script Output"
+        echo "--------------------"
+        dos2unix $INPUT_SCRIPT
+        bash $INPUT_SCRIPT
+        rm -rf $INPUT_SCRIPT
+        echo "--------------------"
+    echo "::endgroup::"
 fi
-echo "--------------------"
 echo "Checking some folders"
 if [ -d package*/*/ ];then
     cd package*/*/
@@ -57,6 +59,7 @@ then
         mv -fv /tmp/$DEB_OUTPUT ./$DEB_OUTPUT
     echo "::endgroup::"
     echo "DEB_PATH=$PWD/$DEB_OUTPUT" >> $GITHUB_ENV
+    echo "DEB_NAME=$NAME" >> $GITHUB_ENV
     echo 'Use ${{ env.DEB_PATH }} to get the file'
     echo "DEB_PATH=$PWD/$DEB_OUTPUT"
     exit 0

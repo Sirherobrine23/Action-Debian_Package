@@ -27,6 +27,11 @@ gitclone.on('exit', function (code){
         debC.stdout.on('data', function (data) {
             console.log(data);
         });
+        debC.on('exit', function (code){
+            if (code == 0){
+                var commit = exec(`git add . && git commit -m "$DEB_NAME from $GITHUB_REPOSITORY"`)
+            }
+        })
     } else{
         console.log('Erro clone')
     };
