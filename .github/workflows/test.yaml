@@ -23,7 +23,7 @@ jobs:
       run: echo ${{ env.DEB_PATH }}
 
     - name: Publish
-      uses: Action-Debian_Package_Publish@main
+      uses: Sirherobrine23/Action-Debian_Package_Publish@main
       with:
         REPO_PATH: 'package/main'
         PATH: ${{ env.DEB_PATH }}
