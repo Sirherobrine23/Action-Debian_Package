@@ -46,7 +46,6 @@ runs:
   using: 'node12'
   pre: 'setup.js'
   main: 'repo.js'
-  post: 'post.js'
 
 branding:
   icon: 'code'
