@@ -21,3 +21,11 @@ jobs:
         
     - name: List
       run: echo ${{ env.DEB_PATH }}
+
+    - name: Publish
+      uses: Action-Debian_Package_Publish@main
+      with:
+        REPO_PATH: 'package/main'
+        PATH: ${{ env.DEB_PATH }}
+        REPOSITORY: 'https://github.com/Sirherobrine23/APT_bysh23.git'
+        BRANCH: 'main'
