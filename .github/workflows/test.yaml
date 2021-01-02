@@ -25,4 +25,4 @@ jobs:
         REPO_PATH: 'package/main'
         PATH: "${{ env.DEB_PATH }}"
         REPOSITORY: 'https://github.com/Sirherobrine23/APT_bysh23.git'
-        BRANCH: 'main'
+        BRANCH: 'master'
