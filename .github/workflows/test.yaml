@@ -9,7 +9,6 @@ jobs:
       uses: actions/checkout@main
       with:
         repository: "Bds-Maneger/BDS-Common"
-
     - name: Package
       uses: Sirherobrine23/Action-Debian_Package@main
       with:
@@ -18,7 +17,8 @@ jobs:
         URL: 'https://github.com/Sirherobrine23/APT_bysh23.git'
         BRANCH: 'master'
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+    - name: Start SSH via ngrok
+      uses: P3TERX/ssh2actions@main
     - name: Publish
       uses: Sirherobrine23/Action-Debian_Package_Publish@main
       with:
