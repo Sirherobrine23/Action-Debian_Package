@@ -8,14 +8,15 @@ rm -rfv "LICENSE*"
 rm -rfv "README*"
 rm -rfv "*.md"
 rm -rfv "*.txt"
-if [ -e $INPUT_SCRIPT ]
-then
+if [[ -e ${INPUT_SCRIPT} ]]; then
     echo "::group::Script Output"
-        echo "--------------------"
-        dos2unix $INPUT_SCRIPT
-        bash $INPUT_SCRIPT
-        rm -rf $INPUT_SCRIPT
-        echo "--------------------"
+    echo "--------------------"
+        if file ${INPUT_SCRIPT} |grep -q 'CRLF'; then
+            dos2unix ${INPUT_SCRIPT}
+        fi
+        bash ${INPUT_SCRIPT}
+        rm -rf ${INPUT_SCRIPT}
+    echo "--------------------"
     echo "::endgroup::"
 fi
 echo "Checking some folders"

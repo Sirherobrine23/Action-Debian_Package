@@ -15,7 +15,6 @@ inputs:
   SCRIPT:
     description: 'Script to be executed so wants to organize the files'
     required: false
-    default: ''
 
   SPACE:
     description: 'Script to be executed so wants to organize the files'
