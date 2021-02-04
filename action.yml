@@ -5,7 +5,12 @@ inputs:
   DEBUG:
     description: 'Show some more content, default is false'
     required: false
-    default: false
+    default: "false"
+
+  BUILD_DIR:
+    description: 'Show some more content, default is false'
+    required: false
+    default: "./"
 
   SCRIPT:
     description: 'Script to be executed so wants to organize the files'
@@ -15,7 +20,7 @@ inputs:
   SPACE:
     description: 'Script to be executed so wants to organize the files'
     required: false
-    default: false
+    default: "false"
 
   GIT:
     description: 'Script to be executed so wants to organize the files'

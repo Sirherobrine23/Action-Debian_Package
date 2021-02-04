@@ -1,5 +1,6 @@
 #!/bin/bash
 #
+cd ${INPUT_BUILD_DIR}
 echo "Removing some unnecessary files and folders"
 rm -rfv ".git*"
 rm -rfv ".github*"
